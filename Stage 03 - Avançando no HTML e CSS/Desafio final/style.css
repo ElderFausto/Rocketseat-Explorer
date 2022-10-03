@@ -183,10 +183,6 @@ footer a {
     display: contents;
   }
 
-  .card + .card {
-    margin-top: ;
-  }
-
  
 
   header p {
@@ -204,8 +200,10 @@ footer a {
     padding: 0 2rem;
   }
 
+
+
   main {
-    max-width: 90rem;
+    max-width: 90.3rem;
     display: grid;
     grid-template-columns: auto auto auto;
 
