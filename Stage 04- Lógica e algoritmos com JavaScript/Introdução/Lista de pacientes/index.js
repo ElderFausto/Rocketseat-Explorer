@@ -21,3 +21,11 @@ for (const property in pacientes) {
 
 alert(pacientesNames)
 alert(dadosGeraisPacientes)
+
+let pacientesAlert = []
+
+for(let i = 0; i < pacientes.length; i++) {
+  pacientesAlert = [JSON.stringify(pacientes[i]), ...pacientesAlert]
+}
+
+alert(pacientesAlert)
