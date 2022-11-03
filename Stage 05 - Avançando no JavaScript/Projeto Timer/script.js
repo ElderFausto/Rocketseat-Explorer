@@ -1,77 +1,81 @@
-let play = document.querySelector(".play");
-let pause = document.querySelector(".pause");
-let stop = document.querySelector(".stop");
-let set = document.querySelector(".set");
-let soundOn = document.querySelector(".sound-on");
-let soundOff = document.querySelector(".sound-off");
+//estudando
 
+const buttonPlay = document.querySelector(".play");
+const buttonPause = document.querySelector(".pause");
+const buttonStop = document.querySelector(".stop");
+const buttonSet = document.querySelector(".set");
+const buttonSoundOn = document.querySelector(".sound-on");
+const buttonSoundOff = document.querySelector(".sound-off");
+let minutes;
+let timerTimeOut;
 const minutesDisplay = document.querySelector(".minutes");
 const secondsDisplay = document.querySelector(".seconds");
 
-let minutes;
+function resetControls() {
+  buttonPlay.classList.remove("hide");
+  buttonPause.classList.add("hide");
+  buttonSet.classList.remove("hide");
+  buttonStop.classList.add("hide");
+}
 
-const countDown = () => {
-  setTimeout(function () {
+function updateTimerDisplay(minutes, seconds) {
+  minutesDisplay.textContent = String(minutes).padStart(2, "0");
+  secondsDisplay.textContent = String(seconds).padStart(2, "0");
+}
+
+function countdown() {
+  timerTimeOut = setTimeout(function () {
     let seconds = Number(secondsDisplay.textContent);
     let minutes = Number(minutesDisplay.textContent);
 
-    secondsDisplay.textContent = String(seconds - 1).padStart(2, "0");
+    updateTimerDisplay(minutes, 0);
 
     if (minutes <= 0) {
-      play.classList.remove("hide");
-      pause.classList.add("hide");
-      set.classList.remove("hide");
-      stop.classList.add("hide");
-
+      resetControls();
       return;
     }
 
     if (seconds <= 0) {
-      seconds = 60;
-
-      minutesDisplay.textContent = String(minutes - 1).padStart(2, "0");
+      seconds = 2;
+      --minutes;
     }
 
-    secondsDisplay.textContent = String(seconds - 1).padStart(2, "0");
+    updateTimerDisplay(minutes, String(seconds - 1));
 
-    countDown();
+    countdown();
   }, 1000);
-};
+}
 
-play.addEventListener("click", function () {
-  play.classList.add("hide");
-  pause.classList.remove("hide");
-  set.classList.add("hide");
-  stop.classList.remove("hide");
+buttonPlay.addEventListener("click", function () {
+  buttonPlay.classList.add("hide");
+  buttonPause.classList.remove("hide");
+  buttonSet.classList.add("hide");
+  buttonStop.classList.remove("hide");
 
-  countDown();
+  countdown();
 });
 
-pause.addEventListener("click", function () {
-  play.classList.remove("hide");
-  pause.classList.add("hide");
-  set.classList.remove("hide");
-  stop.classList.add("hide");
+buttonPause.addEventListener("click", function () {
+  buttonPause.classList.add("hide");
+  buttonPlay.classList.remove("hide");
 });
 
-stop.addEventListener("click", function () {
-  play.classList.remove("hide");
-  pause.classList.add("hide");
-  set.classList.remove("hide");
-  stop.classList.add("hide");
+buttonStop.addEventListener("click", function () {
+  resetControls();
+  clearTimeout(timerTimeOut)
 });
 
-soundOff.addEventListener("click", function () {
-  soundOn.classList.remove("hide");
-  soundOff.classList.add("hide");
+buttonSoundOff.addEventListener("click", function () {
+  buttonSoundOn.classList.remove("hide");
+  buttonSoundOff.classList.add("hide");
 });
 
-soundOn.addEventListener("click", function () {
-  soundOn.classList.add("hide");
-  soundOff.classList.remove("hide");
+buttonSoundOn.addEventListener("click", function () {
+  buttonSoundOn.classList.add("hide");
+  buttonSoundOff.classList.remove("hide");
 });
 
-set.addEventListener("click", function () {
-  minutes = prompt("Quantos minutos ?");
-  minutesDisplay.textContent = String(minutes).padStart(2, "0");
+buttonSet.addEventListener("click", function () {
+  minutes = prompt("Quantos minutos?");
+  updateTimerDisplay(minutes, 0);
 });
