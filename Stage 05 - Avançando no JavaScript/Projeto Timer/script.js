@@ -1,15 +1,13 @@
-//estudando
-
 const buttonPlay = document.querySelector(".play");
 const buttonPause = document.querySelector(".pause");
 const buttonStop = document.querySelector(".stop");
 const buttonSet = document.querySelector(".set");
 const buttonSoundOn = document.querySelector(".sound-on");
 const buttonSoundOff = document.querySelector(".sound-off");
-let minutes;
-let timerTimeOut;
 const minutesDisplay = document.querySelector(".minutes");
 const secondsDisplay = document.querySelector(".seconds");
+let minutes = Number(minutesDisplay.textContent)
+let timerTimeOut;
 
 function resetControls() {
   buttonPlay.classList.remove("hide");
@@ -21,6 +19,11 @@ function resetControls() {
 function updateTimerDisplay(minutes, seconds) {
   minutesDisplay.textContent = String(minutes).padStart(2, "0");
   secondsDisplay.textContent = String(seconds).padStart(2, "0");
+}
+
+function resetTimer() {
+  updateTimerDisplay(minutes, 0)
+  clearTimeout(timerTimeOut)
 }
 
 function countdown() {
@@ -62,7 +65,7 @@ buttonPause.addEventListener("click", function () {
 
 buttonStop.addEventListener("click", function () {
   resetControls();
-  clearTimeout(timerTimeOut)
+  resetTimer();
 });
 
 buttonSoundOff.addEventListener("click", function () {
