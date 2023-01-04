@@ -1,21 +1,12 @@
 const express = require("express");
 
+const routes = require("./routes")
+
 const app = express();
 
-app.get("/message/:id/:user", (req, res) => {
-  const { id, user } = req.params;
+app.use(express.json())
 
-  res.send(`
-    Id da mensagem ${id}.
-    Para o usuario: ${user}
-  `);
-});
-
-app.get("/users", (request, response) => {
-  const { page, limit } = request.query;
-
-  response.send(`Página: ${page}. Mostrar: ${limit}`);
-});
+app.use(routes)
 
 const PORT = 3333;
 
