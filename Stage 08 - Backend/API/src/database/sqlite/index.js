@@ -10,5 +10,5 @@ async function sqLiteConnection() {
 
   return database;
 }
-
+// SQL
 module.exports = sqLiteConnection;
